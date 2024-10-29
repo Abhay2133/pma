@@ -34,9 +34,9 @@
 
 ## Demo
 
-[Link to Live Demo](#) (Insert the link here if deployed)
+[Link to Live Demo](https://pma-ten.vercel.app)
 
-![Project Management Website Screenshot](#) (Add screenshot here if available)
+![Project Management Website Screenshot](./docs/images/web-preview.png) (Add screenshot here if available)
 
 ---
 
