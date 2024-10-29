@@ -2,12 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc",
     "dev": "nodemon",
-    "lint": "npx eslint . --fix",
+    "lint": "eslint src --fix",
     "test": "echo \"No tests right now\""
   },
   "keywords": [],
