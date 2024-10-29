@@ -11,7 +11,6 @@ on:
 jobs:
   backend-check:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.changed_files, 'backend/')
     name: Backend Checks
     steps:
       - name: Checkout code
@@ -36,7 +35,6 @@ jobs:
 
   web-check:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.changed_files, 'web/')
     name: Web Checks
     steps:
       - name: Checkout code
