@@ -1,0 +1,60 @@
+name: Monorepo Pull Request Checks
+
+on:
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'web/**'
+    branches:
+      - main  # Runs checks when PRs are opened against the main branch
+
+jobs:
+  backend-check:
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.changed_files, 'backend/')
+    name: Backend Checks
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Lint backend code
+        working-directory: ./backend
+        run: npm run lint
+
+      - name: Test backend code
+        working-directory: ./backend
+        run: npm test
+
+  web-check:
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.changed_files, 'web/')
+    name: Web Checks
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install web dependencies
+        working-directory: ./web
+        run: npm install
+
+      - name: Lint web code
+        working-directory: ./web
+        run: npm run lint
+
+      - name: Test web code
+        working-directory: ./web
+        run: npm test
