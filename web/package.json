@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "preview": "npm run build && npm run start"
+    "preview": "npm run build && npm run start",
+    "test": "echo \"No tests cases yet :>\""
   },
   "dependencies": {
     "frontend": "file:",
