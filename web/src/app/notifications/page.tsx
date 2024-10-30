@@ -4,13 +4,15 @@ import { useAppContext } from "@/context/AppContext";
 import { Metadata } from "next";
 import { useEffect } from "react";
 
-export default function Teams(props: any) {
+export default function Notifications(props: any) {
   const { value, setValue } = useAppContext();
   useEffect(() => {
-    setValue({ ...value, activeTitle: "Teams" });
+    setValue({ ...value, activeTitle: "Notifications" });
   }, []);
   return (
-    <div className="flex justify-center items-center min-h-screen">Teams</div>
+    <div className="flex justify-center items-center min-h-screen">
+      Notifications
+    </div>
   );
 }
 
