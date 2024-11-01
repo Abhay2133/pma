@@ -15,13 +15,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Plus } from "lucide-react";
+import Link from "next/link";
 // import Sidebar from "../ui/sidebar";
 
 export default function Dashboard(props: any) {
-  const {value,setValue} = useAppContext();
-  useEffect(()=>{
-    setValue({...value, activeTitle:"Dashboard"})
-  },[])
+  const { value, setValue } = useAppContext();
+  useEffect(() => {
+    setValue({ ...value, activeTitle: "Dashboard" });
+  }, []);
   return (
     <div className="flex-1 flex flex-col ">
       <Header />
@@ -35,7 +36,11 @@ function Header() {
     <div className="flex p-2 items-center gap-3">
       <SidebarTrigger />
       <div className="text-xl">Projects</div>
-      <Button className="active:scale-95 transition-transform ml-auto mr-10"><Plus/> New Project</Button>
+      <Button className="active:scale-95 transition-transform ml-auto mr-10" asChild>
+        <Link href="/new">
+        <Plus /> New Project
+        </Link>
+      </Button>
     </div>
   );
 }
@@ -68,7 +73,7 @@ function SearchProject() {
     "Priority",
   ];
 
-  const inputRef = useRef<HTMLInputElement|null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
