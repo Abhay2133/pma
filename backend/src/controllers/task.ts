@@ -15,7 +15,7 @@ async function createTaskHandler(req: Request, res: Response): Promise<any> {
         description,
         listId,
         assignedToId,
-        status
+        status,
       },
     });
     return res.status(200).json({ msg: "Task created successfully" });
@@ -24,21 +24,21 @@ async function createTaskHandler(req: Request, res: Response): Promise<any> {
   }
 }
 
-async function getTasksHandler(req:Request,res:Response):Promise<any>{
-    const listId:string="c94819bf-caa1-4b10-adcf-dac1133c9687";
+async function getTasksHandler(req: Request, res: Response): Promise<any> {
+  const listId: string = "c94819bf-caa1-4b10-adcf-dac1133c9687";
 
-    try {
-        const tasks=await prismaClient.task.findMany({
-            where:{
-                listId
-            }
-        })
-    
-        return res.status(200).json({tasks});
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({msg:"Internal Server error"});
-    }
+  try {
+    const tasks = await prismaClient.task.findMany({
+      where: {
+        listId,
+      },
+    });
+
+    return res.status(200).json({ tasks });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: "Internal Server error" });
+  }
 }
 
-export { createTaskHandler,getTasksHandler };
+export { createTaskHandler, getTasksHandler };
