@@ -1,51 +1,42 @@
-// @ts-check
+const globals = require("globals");
+const pluginJs = require("@eslint/js");
+const tseslint = require("@typescript-eslint/eslint-plugin");
+const tsparser = require("@typescript-eslint/parser");
+const prettier = require("eslint-plugin-prettier");
 
-const eslint = require("@eslint/js");
-const tseslint = require("typescript-eslint");
-
-module.exports = tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
+module.exports = [
   {
-    // Specify global variables
+    files: ["**/*.{js,mjs,cjs,ts}"],
+    ignores: ["node_modules/", "dist/", "build/"],
+  },
+  {
     languageOptions: {
       globals: {
-        process: "readonly",
-        __dirname: "readonly", // Represents the directory name of the current module
-        __filename: "readonly", // Represents the filename of the current module
-        Buffer: "readonly", // Provides a way to handle binary data
-        global: "readonly", // The global object in Node.js
-        console: "readonly", // The global object in Node.js
+        ...globals.browser,
+        process: "readonly", // Declare 'process' as a global variable
+      },
+      parser: tsparser,
+      parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: "module",
       },
     },
-
-    ignores: ["dist/**/*", "node_modules/**/*"], // Specify patterns to ignore
-
+  },
+  pluginJs.configs.recommended,
+  {
+    plugins: {
+      "@typescript-eslint": tseslint,
+      prettier: prettier,
+    },
     rules: {
+      semi: ["error", "always"],
+      quotes: ["error", "double"],
       "@typescript-eslint/no-unused-vars": [
         "warn",
-        {
-          args: "all",
-          argsIgnorePattern: "^_",
-          caughtErrors: "all",
-          caughtErrorsIgnorePattern: "^_",
-          destructuredArrayIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
-          ignoreRestSiblings: true,
-        },
+        { argsIgnorePattern: "^_" },
       ],
-      "@typescript-eslint/no-explicit-any": "warn",
-      "no-undef": "error",
-      "semi": ["error", "always"],
-      "quotes": ["error", "double"],
-      "no-single-quote": "off",
-      "indent": ["error", 2],
-      "no-trailing-spaces": "error",
-      "comma-dangle": ["error", "always-multiline"],
-      "object-curly-spacing": ["error", "always"],
-      "arrow-spacing": ["error", { before: true, after: true }],
-      "no-console": ["warn", { allow: ["warn", "error"] }],
-      "prefer-const": "error",
+      "no-unused-vars": "off",
+      "prettier/prettier": "error",
     },
-  }
-);
+  },
+];
