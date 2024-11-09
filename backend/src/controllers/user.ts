@@ -67,7 +67,13 @@ async function loginUserHandler(req: Request, res: Response): Promise<any> {
       return res.status(401).json({ msg: "Invalid Password" });
     }
 
-    return res.status(200).json({ msg: "Login successful" });
+    const user2 = await prismaClient.user.findMany({
+      include: {
+        boards: true,
+      },
+    });
+
+    return res.status(200).json({ msg: "Login successful", user2 });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Internal server error" });

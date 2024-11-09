@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User{
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   username String
   email String @unique
   password String
@@ -26,9 +26,9 @@ model User{
 }
 
 model Board{
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   title String
-  ownerId Int
+  ownerId String
   owner User @relation("UserBoards",fields:[ownerId],references:[id])
   description String
   lists List[] @relation("BoardLists")
@@ -37,10 +37,10 @@ model Board{
 }
 
 model List{
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   title String
-  position Int
-  boardId Int
+  position Int @unique
+  boardId String
   board Board @relation("BoardLists",fields:[boardId],references:[id])
   tasks Task[] @relation("TaskLists") 
   createdAt DateTime @default(now())
@@ -48,20 +48,14 @@ model List{
 }
 
 model Task{
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   title String
   description String?
-  listId Int
+  listId String
   list List @relation("TaskLists",fields:[listId],references:[id])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  assignedToId Int?
+  assignedToId String?
   assignedTo  User?  @relation("AssignedTasks", fields: [assignedToId], references: [id])
   status      String    // e.g., "todo", "in-Progress", "done"
-}
-
-model Age{
-  id Int @id @default(autoincrement())
-  title String
-  description String?
 }
