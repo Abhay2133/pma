@@ -13,6 +13,7 @@ module.exports = [
     languageOptions: {
       globals: {
         ...globals.browser,
+        ...globals.node,
         process: "readonly", // Declare 'process' as a global variable
       },
       parser: tsparser,
@@ -37,6 +38,19 @@ module.exports = [
       ],
       "no-unused-vars": "off",
       "prettier/prettier": "error",
+    },
+  },
+  {
+    // Configuration for test files using Mocha
+    files: ["**/*.test.{js,ts}", "**/*.spec.{js,ts}"], // Match test file patterns
+    languageOptions: {
+      globals: {
+        ...globals.mocha, // Include Mocha globals like `describe`, `it`, etc.
+        ...globals.node, // Include Node.js globals if needed
+      },
+    },
+    rules: {
+      // Add any test-specific rules here if needed
     },
   },
 ];
