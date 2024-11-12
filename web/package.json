@@ -10,7 +10,7 @@
     "prepreview": "npm run build",
     "preview": "npx serve out",
     "export": "next export",
-    "test": "echo \"No tests right now\""
+    "test": "echo"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.1",
