@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import prismaClient from "../lib/db.js";
-import { createUserHandler } from "../controllers/user.js";
+import { createUserHandler } from "../controllers/auth.js";
 import { v4 as uuidv4 } from "uuid";
 
 const MockRequest = (body: any) => ({ body }) as any;
@@ -36,6 +36,7 @@ describe("createUserHandler", () => {
     await createUserHandler(req, res);
 
     expect(res.status.calledWith(200)).to.be.true;
-    expect(res.json.calledWith({ msg: "User created successfully" })).to.be.true;
+    expect(res.json.calledWith({ msg: "User created successfully" })).to.be
+      .true;
   });
 });

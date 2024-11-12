@@ -13,49 +13,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id String @id @default(uuid())
-  username String
-  email String @unique
-  password String
-  salt String
-  boards Board[] @relation("UserBoards")
-  tasks Task[] @relation("AssignedTasks")
-  createdAt DateTime @default(now())
-  updatedAt DateTime  @updatedAt
+model User {
+  id         String    @id @default(uuid())
+  username   String
+  email      String    @unique
+  password   String
+  salt       String
+  projects   Project[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
-model Board{
-  id String @id @default(uuid())
-  title String
-  ownerId String
-  owner User @relation("UserBoards",fields:[ownerId],references:[id])
-  description String
-  lists List[] @relation("BoardLists")
-  createdAt DateTime @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model List{
-  id String @id @default(uuid())
-  title String
-  position Int @unique
-  boardId String
-  board Board @relation("BoardLists",fields:[boardId],references:[id])
-  tasks Task[] @relation("TaskLists") 
-  createdAt DateTime @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model Task{
-  id String @id @default(uuid())
-  title String
+model Project {
+  id          String    @id @default(uuid())
+  title       String    @default("Untitled Project")
   description String?
-  listId String
-  list List @relation("TaskLists",fields:[listId],references:[id])
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  board       Board?    @relation("ProjectBoard") // One-to-one relation with Board
+  priority    Int
+  members     String[]
+}
+
+model Board {
+  id          String    @id @default(uuid())
+  boardName   String    @map("board_name")
+  description String?
+  projectId   String    @unique // Ensure each board is linked to one project
+  project     Project   @relation("ProjectBoard", fields: [projectId], references: [id]) // One-to-one relation with Project
+  lists       List[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  assignedToId String?
-  assignedTo  User?  @relation("AssignedTasks", fields: [assignedToId], references: [id])
-  status      String    // e.g., "todo", "in-Progress", "done"
+}
+
+model List {
+  listId      String    @id @default(uuid())
+  listName    String    @map("list_name")
+  position    Int
+  boardId     String
+  board       Board     @relation(fields: [boardId], references: [id])
 }
