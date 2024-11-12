@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prepreview": "npm run build",
     "preview": "npx serve out",
-    "export": "next export"
+    "export": "next export",
+    "test": "echo"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.1",
