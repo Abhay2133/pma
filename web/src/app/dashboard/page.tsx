@@ -37,7 +37,7 @@ function Header() {
       <SidebarTrigger />
       <div className="text-xl">Projects</div>
       <Button className="active:scale-95 transition-transform ml-auto mr-10" asChild>
-        <Link href="/new">
+        <Link href="/projects/new">
         <Plus /> New Project
         </Link>
       </Button>
@@ -130,7 +130,7 @@ function ProjectCard({
     Low: "🟢",
   };
   return (
-    <div className="text-sm flex flex-col gap-3 min-w-full md:min-w-[350px] px-8 p-5 rounded-lg hover:bg-[#efefff] border border-gray-300 shadow hover:shadow-md transition-all">
+    <div className="text-sm flex flex-col gap-3 min-w-full md:min-w-[350px] px-8 p-5 rounded-lg bg-primary-foreground border shadow-md hover:shadow-lg hover:scale-105 transition-all active:scale-95">
       {/* Description */}
       <div className="flex items-center gap-4 cursor-pointer">
         <div className="w-[80px] h-[80px] bg-gray-700 rounded-lg"></div>
@@ -143,19 +143,19 @@ function ProjectCard({
         </div>
       </div>
       {/* Row */}
-      <div className="flex justify-between text-gray-800">
+      <div className="flex justify-between text-primary">
         <div className=" cursor-pointer">
-          <div className="text-gray-700 text-sm">Due Date</div>
+          <div className="text-secondary-foreground text-sm">Due Date</div>
           <div>📆 {dueDate}</div>
         </div>
         <div className=" cursor-pointer">
-          <div className="text-gray-700 text-sm">Priority</div>
+          <div className="text-secondary-foreground text-sm">Priority</div>
           <div>
             {priorityIcons[priority]} {priority}
           </div>
         </div>
         <div className=" cursor-pointer">
-          <div className="text-gray-700 text-sm">Tasks Done</div>
+          <div className="text-secondary-foreground text-sm">Tasks Done</div>
           <div>
             📋 {completed} / {total}
           </div>

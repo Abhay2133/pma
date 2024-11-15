@@ -28,9 +28,11 @@ import {
   SidebarHeader,
   SidebarMenuButton,
   SidebarRail,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { useAppContext } from "@/context/AppContext";
+import { ModeToggle } from "./theme-toggle";
 
 // This is sample data.
 const data = {
@@ -118,6 +120,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { value, setValue } = useAppContext();
+  const { open } = useSidebar();
   const activeTitle = value?.activeTitle;
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -128,16 +131,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           asChild
         >
-          <Link href="/about">
+          <div className="overflow-hidden">
             <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
             </div>
-            <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-semibold">App Name</span>
+            <div className="flex-1 text-left text-sm leading-tight flex justify-between items-center">
+              <span className="truncate font-semibold">PMA</span>
               {/* <span className="truncate text-xs">{activeTeam.plan}</span> */}
+              {open && <ModeToggle />}
             </div>
-            {/* <ChevronsUpDown className="ml-auto" /> */}
-          </Link>
+          </div>
+          {/* <ChevronsUpDown className="ml-auto" /> */}
         </SidebarMenuButton>
       </SidebarHeader>
       <SidebarContent>
